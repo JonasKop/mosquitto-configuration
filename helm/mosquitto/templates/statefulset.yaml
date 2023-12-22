@@ -30,6 +30,12 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "mosquitto.fullname" . }}
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "20m"
+            limits:
+              memory: "100Mi"
       volumes:
         - name: config
           configMap:
