@@ -1,0 +1,12 @@
+global:
+  containerRegistry: ghcr.io
+
+image:
+  registry: ""
+  repository: jonaskop/mosquitto
+  tag: ""
+
+config:
+  mosquitto:
+    username: "not_set"
+    password: "not_set"

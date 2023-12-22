@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "mosquitto.fullname" . }}
+  labels:
+    {{- include "mosquitto.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "mosquitto.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "mosquitto.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+        runAsUser: 1883
+        runAsGroup: 1883
+      containers:
+        - name: mosquitto
+          image: {{ include "mosquitto.image" . }}
+          volumeMounts:
+            - name: config
+              mountPath: "/mosquitto/config/mosquitto.conf"
+              subPath: mosquitto.conf
+          ports:
+            - name: mqtt
+              containerPort: 1883
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: {{ include "mosquitto.fullname" . }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "mosquitto.fullname" . }}
