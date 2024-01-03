@@ -1,0 +1,21 @@
+name: Create release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Changelog
+        uses: ./.github/actions/create-release
+        with:
+          images: "mosquitto"
+          charts: "mosquitto"
