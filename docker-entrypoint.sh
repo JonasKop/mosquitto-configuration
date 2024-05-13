@@ -9,6 +9,6 @@ mosquitto_passwd \
     -c \
     /mosquitto/passwd \
     "${MOSQUITTO_USERNAME}" \
-    "${MOSQUITTO_PASSWORD}" \
+    "${MOSQUITTO_PASSWORD}"
 
-/docker-entrypoint.sh
+/docker-entrypoint.sh "$@"
